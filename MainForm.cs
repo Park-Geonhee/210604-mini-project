@@ -1,4 +1,4 @@
-﻿using MySql.Data.MySqlClient;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -27,7 +27,7 @@ namespace DB_Management
 
         private void Logout_Click(object sender, EventArgs e)
         {
-            
+
             mySqlDb?.Close();
             mySqlDb = null;
             this.Dispose();
@@ -37,19 +37,19 @@ namespace DB_Management
 
         private void toolStripMenuItem6_Click(object sender, EventArgs e)
         {
-         
+
             mySqlDb?.Close();
             mySqlDb = null;
             Application.Exit();
         }
         private void 추가_Click(object sender, EventArgs e)
         {
-           Add AddFrm = new Add();
+            Add AddFrm = new Add();
 
-              if (mySqlDb?.IsOpen == true)
-              { 
-                if(AddFrm.ShowDialog(this) == DialogResult.OK)
-                  {
+            if (mySqlDb?.IsOpen == true)
+            {
+                if (AddFrm.ShowDialog(this) == DialogResult.OK)
+                {
 
                     String query = String.Format("INSERT INTO member (name, age, sex, addr, phone) VALUES ('{0}', '{1}',  '{2}',  '{3}',  '{4}')",
                             AddFrm.AddName.Text, AddFrm.AddAge.Text, AddFrm.AddSex.Text, AddFrm.AddAddr.Text, AddFrm.AddPhone.Text);
@@ -61,67 +61,35 @@ namespace DB_Management
                         MessageBox.Show("성공적으로 추가되었습니다");
                         tsslblStatus.Text = "추가 완료";
                     }
-                    catch (MySqlException)
+                    catch (MySqlException ex)
                     {
-                        MessageBox.Show("잘못된 입력 형식입니다.");
+                        MessageBox.Show(ex.Message + "\r\n\r\n" + ex.StackTrace, "에러발생");
                     }
-                  }
-               }
+                }
+            }
             else
             {
                 MessageBox.Show("서버와 연결이 되어있지 않습니다.");
-             }
+            }
         }
-        
-         private void 수정_Click(object sender, EventArgs e)
+
+        private void 수정_Click(object sender, EventArgs e)
         {
-            if (mySqlDb?.IsOpen == true)
-            {
-                Update UpFrm = new Update();
-                UpFrm.mySqlDb = this.mySqlDb;
-                UpFrm.ShowDialog();
-                tsslblStatus.Text = "수정 완료";
-            }
-
-            else
-            {
-                MessageBox.Show("서버와 연결이 되어있지 않습니다.");
-            }
-
+            Update UpFrm = new Update();
+            UpFrm.mySqlDb = this.mySqlDb;
+            UpFrm.ShowDialog();
+            tsslblStatus.Text = "수정 완료";
         }
-        
-       
+
+
         private void 제거_Click(object sender, EventArgs e)
         {
-           Delete DelFrm = new Delete();
-
-              if (mySqlDb?.IsOpen == true)
-              { 
-                if(DelFrm.ShowDialog(this) == DialogResult.OK)
-                  {
-                    
-
-                    String query = String.Format("delete from member where MEMBER_ID =('{0}')",DelFrm.Del_Id.Text);
-
-                    MySqlCommand cmd_insert = new MySqlCommand(query, mySqlDb.Conn);
-                    try
-                    {
-                        cmd_insert.ExecuteNonQuery();
-                        MessageBox.Show("성공적으로 제거되었습니다");
-                        tsslblStatus.Text = "제거 완료";
-                    }
-                    catch (MySqlException)
-                    {
-                        MessageBox.Show("잘못된 입력입니다.");
-                    }
-                  }
-               }
-            else
-            {
-               MessageBox.Show("서버와 연결이 되어있지 않습니다.");
-             }
+            Delete DelFrm = new Delete();
+            DelFrm.mySqlDb = this.mySqlDb;
+            DelFrm.ShowDialog();
+            tsslblStatus.Text = "제거 완료";
         }
-        
+
         private MySqlDataAdapter dataAdapter = new MySqlDataAdapter();
 
         private void Select_Table()
@@ -165,7 +133,7 @@ namespace DB_Management
                 dataGridView1.DataSource = bindingSource1;
                 GetData("select * from member");
 
-               Select_Table();
+                Select_Table();
                 tsslblStatus.Text = "조회 완료";
             }
             else
@@ -213,14 +181,14 @@ namespace DB_Management
             }
 
         }
-        
-        
+
+
         private void SelectAdress_Click(object sender, EventArgs e)
         {
             SelectToAdr STA = new SelectToAdr();
             STA.mySqlDb = this.mySqlDb;
             STA.ShowDialog();
-            
+
             if (mySqlDb?.IsOpen == true)
             {
                 if (STA.ShowDialog(this) == DialogResult.OK)
@@ -240,7 +208,7 @@ namespace DB_Management
             }
         }
 
-        
+
 
         private void GetData(string selectCommand)
         {
@@ -289,6 +257,5 @@ namespace DB_Management
             infomation.ShowDialog();
         }
 
- 
     }
 }
