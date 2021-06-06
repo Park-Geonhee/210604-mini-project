@@ -94,36 +94,23 @@ namespace DB_Management
 
         private void Select_Table()
         {
-            //dataGridView1.Columns[0].Name = "MEMBER_ID";
             dataGridView1.Columns[0].HeaderText = "MEMBER_ID";
             dataGridView1.Columns[0].Width = 80;
-            //dataGridView1.Columns[0].Visible = false;
 
-            //dataGridView1.Columns[0].DataPropertyName = "MEMBER_ID";
-            //dataGridView1.Columns[1].Name = "NAME";
             dataGridView1.Columns[1].HeaderText = "이름";
             dataGridView1.Columns[1].Width = 100;
-            //dataGridView1.Columns[1].DataPropertyName = "NAME";
-
-            //dataGridView1.Columns[2].Name = "AGE";
+            
             dataGridView1.Columns[2].HeaderText = "나이";
             dataGridView1.Columns[2].Width = 90;
-            //dataGridView1.Columns[2].DataPropertyName = "AGE";
 
-            //dataGridView1.Columns[3].Name = "SEX";
             dataGridView1.Columns[3].HeaderText = "성별";
             dataGridView1.Columns[3].Width = 90;
-            //dataGridView1.Columns[3].DataPropertyName = "SEX";
 
-            //dataGridView1.Columns[4].Name = "ADDR";
             dataGridView1.Columns[4].HeaderText = "주소";
             dataGridView1.Columns[4].Width = 450;
-            //dataGridView1.Columns[4].DataPropertyName = "ADDR";
 
-            //dataGridView1.Columns[5].Name = "PHONE";
             dataGridView1.Columns[5].HeaderText = "전화번호";
             dataGridView1.Columns[5].Width = 150;
-            //dataGridView1.Columns[5].DataPropertyName = "PHONE";
         }
 
         private void SelectAll_Click(object sender, EventArgs e)
